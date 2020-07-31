@@ -3,15 +3,22 @@
 nBlock_FreqPulse::nBlock_FreqPulse(PinName pinOut, float frequency, float duration):
 	_pwm(pinOut) {
 		
-	_duration = duration;
+	if (frequency <= 0.0) {
+		// Disable if frequency is not valid
+		_duration = 0;
+	}
 	
-	// PWM Config
-	// PWM Idle state is GND
-	_pwm.write(0);
-	_pwm.frequency(frequency);
+	else {
+		_duration = duration;
+		
+		// PWM Config
+		// PWM Idle state is GND
+		_pwm.write(0);
+		_pwm.period(1.0/frequency);
+	}
 	
 	// Reset values
-	must_update = 0;
+	must_trigger = 0;
 	
 }
 
@@ -20,20 +27,23 @@ void nBlock_FreqPulse::triggerInput(uint32_t inputNumber, uint32_t value){
 	// input 0 receives an intensity value in range 0-255
 	if (inputNumber == 0) {
 		// Set flag so we start the pulse at endFrame
-		must_update =  1;
+		must_trigger =  1;
 	}
 }
 
 void nBlock_FreqPulse::endFrame(void){
 
-	if (must_update) {
-		must_update = 0;
+	if (must_trigger) {
+		must_trigger = 0;
 		
-		// Add the callback
-		(this->_timer).attach(callback(this, &nBlock_FreqPulse::_timeout), _duration);
-		
-		// Output wave on
-		_pwm.write(0.5f);
+		// If duration is 0, the node is disabled
+		if (_duration > 0.0) {
+			// Add the callback
+			(this->_timer).attach(callback(this, &nBlock_FreqPulse::_timeout), _duration);
+			
+			// Output wave on
+			_pwm.write(0.5f);
+		}
 	}
 	
 	
