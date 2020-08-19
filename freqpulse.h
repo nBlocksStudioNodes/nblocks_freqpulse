@@ -7,7 +7,7 @@ class nBlock_FreqPulse: public nBlockSimpleNode<1> {
 public:
 
     nBlock_FreqPulse(PinName pinOut, float frequency, float duration);
-    void triggerInput(uint32_t inputNumber, uint32_t value);
+    void triggerInput(nBlocks_Message message);
 	void endFrame();
 	
    

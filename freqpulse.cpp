@@ -23,9 +23,9 @@ nBlock_FreqPulse::nBlock_FreqPulse(PinName pinOut, float frequency, float durati
 }
 
 
-void nBlock_FreqPulse::triggerInput(uint32_t inputNumber, uint32_t value){
+void nBlock_FreqPulse::triggerInput(nBlocks_Message message){
 	// input 0 receives an intensity value in range 0-255
-	if (inputNumber == 0) {
+	if (message.inputNumber == 0) {
 		// Set flag so we start the pulse at endFrame
 		must_trigger =  1;
 	}
