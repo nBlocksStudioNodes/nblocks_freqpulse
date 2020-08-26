@@ -1,0 +1,48 @@
+{
+    "category": "Hardware",
+    "inputs": 1, 
+    "name": "FreqPulse", 
+    "parameters": [
+        {
+            "default": "P2_0", 
+            "type": "raw", 
+            "name": "Pin TX", 
+            "value": "P2_0", 
+            "options": [
+                ""
+            ]
+        }, 
+        {
+            "default": "440", 
+            "type": "raw", 
+            "name": "Frequency", 
+            "value": "440", 
+            "options": [
+                ""
+            ]
+        },
+        {
+            "default": "2000", 
+            "type": "raw", 
+            "name": "Duration", 
+            "value": "2000", 
+            "options": [
+                ""
+            ]
+        }
+    ], 
+    "outputs": 0, 
+    "labels": {
+        "input": [], 
+        "output": []
+    }, 
+    "schematic_pins": {
+        "inputs": [
+            1
+        ], 
+        "outputs": [
+        ]
+    }, 
+    "repository": "https://github.com/nblocksStudioNodes/nblocks_freqpulse", 
+    "revision": ""
+}
